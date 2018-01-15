@@ -40,8 +40,8 @@ public abstract class AbstractInitiationMessage extends AbstractMessage {
         this.opCode = OpCode.WRQ;
 
         int endOfPath = Utils.findByte(blob, (byte) 0, 2);
-        this.fileName = new String(Utils.getSnippet(blob, 2, endOfPath));
+        this.fileName = new String(Utils.getSnippet(blob, 2, endOfPath-1));
 
-        this.mode = new String(Utils.getSnippet(blob, endOfPath + 1, blob.length));
+        this.mode = new String(Utils.getSnippet(blob, endOfPath + 1, blob.length-1));
     }
 }

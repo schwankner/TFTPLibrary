@@ -101,7 +101,7 @@ public class Network {
 
         try {
             socket.receive(receivePacket);
-            receivePacket.setData(Utils.trim(receivePacket.getData()));
+            receivePacket.setData(Utils.trimRawDataPackage(receivePacket.getData()));
             return receivePacket;
         } catch (IOException e) {
             //System.err.println("receive-method had a serverTimeout \nRESTART TRANSMISSION");

@@ -24,28 +24,28 @@ public class Utils {
         return buffer.getShort();
     }
 
-    public static byte[] trim(byte[] bytes) {
+    public static byte[] trimRawDataPackage(byte[] bytes) {
         int i = bytes.length - 1;
-        while (i > 4 && bytes[i] == 0) {
+        while (i > 3 && bytes[i] == 0) {
             --i;
         }
 
-        return Arrays.copyOf(bytes, i);
+        return getSnippet(bytes, 0, i);
     }
 
-    public static int findByte(byte[] haystack, byte needle,int start){
-        int i=start;
-        boolean found=false;
-        while (!found||i>haystack.length){
-            if(haystack[i]==needle){
-                found=true;
+    public static int findByte(byte[] haystack, byte needle, int start) {
+        int i = start;
+        boolean found = false;
+        while (!found || i > haystack.length) {
+            if (haystack[i] == needle) {
+                found = true;
             }
             i++;
         }
-        return i-1;
+        return i - 1;
     }
 
-    public static byte[] getSnippet(byte[] array, int start, int end){
+    public static byte[] getSnippet(byte[] array, int start, int end) {
         /*int length = end-start;
         if(start==0){
             length = (end-start)+1;
@@ -56,11 +56,11 @@ public class Utils {
             snippet[i]=array[i+start];
         }
         return snippet;*/
-        return Arrays.copyOfRange(array,start,end+1);
+        return Arrays.copyOfRange(array, start, end + 1);
     }
 
-    public static OpCode getOpCode(byte[] blob){
-        short numeral = Utils.binToShort(Utils.getSnippet(blob,0,1));
+    public static OpCode getOpCode(byte[] blob) {
+        short numeral = Utils.binToShort(Utils.getSnippet(blob, 0, 1));
         return OpCode.valueOf(numeral);
     }
 }

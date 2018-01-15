@@ -26,13 +26,14 @@ public class FileSystem {
         return null;
     }
 
-    public static void writeBlobToFile(byte[] blob){
+    public static void writeBlobToFile(byte[] blob,String filename){
 
         try {
-            FileUtils.writeByteArrayToFile(new File("pathname"), blob);
+            FileUtils.writeByteArrayToFile(new File(filename), blob);
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
+        System.out.println("File "+filename+" written with "+blob.length+" bytes");
     }
 }

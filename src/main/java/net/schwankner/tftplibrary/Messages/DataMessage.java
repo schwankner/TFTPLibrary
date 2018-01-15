@@ -38,7 +38,7 @@ public class DataMessage extends AbstractMessage {
     private void readBlob(byte[] blob){
         this.opCode = OpCode.DATA;
         this.packetNumber=Utils.binToShort(Utils.getSnippet(blob,2,3));
-        this.payload=Utils.getSnippet(blob,4,blob.length);
+        this.payload=Utils.getSnippet(blob,4,blob.length-1);
     }
 
     public short getPacketNumber(){
