@@ -12,4 +12,8 @@ public class WriteMessage extends AbstractInitiationMessage {
     public WriteMessage(byte[] blob){
         super(blob);
     }
+
+    public String getFileName() {
+        return fileName;
+    }
 }

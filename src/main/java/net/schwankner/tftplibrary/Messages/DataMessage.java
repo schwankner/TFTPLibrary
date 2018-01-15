@@ -44,4 +44,12 @@ public class DataMessage extends AbstractMessage {
     public short getPacketNumber(){
         return this.packetNumber;
     }
+
+    public int getSize(){
+        return this.payload.length;
+    }
+
+    public byte[] getPayload(){
+        return this.payload;
+    }
 }
