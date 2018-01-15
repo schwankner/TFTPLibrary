@@ -90,9 +90,9 @@ public class Network {
                 System.out.println(e);
             }
         }
-        System.out.println("Session closed, server not reachable!");
+        /*System.out.println("Session closed, server not reachable!");
         close();
-        System.exit(1);
+        System.exit(1);*/
     }
 
     public DatagramPacket receivePacket() throws TimeoutException {
@@ -101,7 +101,7 @@ public class Network {
 
         try {
             socket.receive(receivePacket);
-            Utils.trim(data);
+            receivePacket.setData(Utils.trim(receivePacket.getData()));
             return receivePacket;
         } catch (IOException e) {
             //System.err.println("receive-method had a serverTimeout \nRESTART TRANSMISSION");
