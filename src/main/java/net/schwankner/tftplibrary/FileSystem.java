@@ -1,7 +1,6 @@
 package net.schwankner.tftplibrary;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
