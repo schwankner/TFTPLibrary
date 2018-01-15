@@ -1,0 +1,8 @@
+muss:
+	RRQ
+	status output
+
+optional:
+	error message
+	big test!
+	    enden/ empfangen Bild

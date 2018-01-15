@@ -90,7 +90,12 @@ public class Network {
                 System.out.println(e);
             }
         }
-        /*System.out.println("Session closed, server not reachable!");
+        /*
+        try {
+            Thread.sleep(1000);                 //1000 milliseconds is one second.
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }        System.out.println("Session closed, server not reachable!");
         close();
         System.exit(1);*/
     }
