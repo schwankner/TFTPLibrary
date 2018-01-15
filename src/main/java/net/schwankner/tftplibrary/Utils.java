@@ -26,11 +26,11 @@ public class Utils {
 
     public static byte[] trim(byte[] bytes) {
         int i = bytes.length - 1;
-        while (i >= 0 && bytes[i] == 0) {
+        while (i > 4 && bytes[i] == 0) {
             --i;
         }
 
-        return Arrays.copyOf(bytes, i + 1);
+        return Arrays.copyOf(bytes, i);
     }
 
     public static int findByte(byte[] haystack, byte needle,int start){

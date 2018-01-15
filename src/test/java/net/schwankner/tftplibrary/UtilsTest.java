@@ -44,4 +44,12 @@ public class UtilsTest {
 
         assertEquals(OpCode.WRQ,Utils.getOpCode(input));
     }
+
+    @Test
+    public void trimTest(){
+        byte[] input = new byte[]{0x0, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
+        byte[] expected = new byte[]{0x0, 0x4, 0x0, 0x0};
+
+        assertArrayEquals(expected, Utils.trim(input));
+    }
 }
