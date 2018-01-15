@@ -90,7 +90,9 @@ public class Network {
                 System.out.println(e);
             }
         }
-
+        System.out.println("Session closed, server not reachable!");
+        close();
+        System.exit(1);
     }
 
     public DatagramPacket receivePacket() throws TimeoutException {
