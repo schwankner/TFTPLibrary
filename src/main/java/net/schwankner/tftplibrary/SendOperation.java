@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Alexander Schwankner on 14.01.18.
  */
-public class ReadOperation {
+public class SendOperation {
 
     private byte[] data;
 

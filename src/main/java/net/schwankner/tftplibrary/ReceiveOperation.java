@@ -8,12 +8,12 @@ import java.util.List;
 /**
  * Created by Alexander Schwankner on 15.01.18.
  */
-public class WriteOperation {
+public class ReceiveOperation {
 
     private String filename;
     private List<DataMessage> dataMap = new ArrayList<>();
 
-    public WriteOperation(String filename) {
+    public ReceiveOperation(String filename) {
         this.filename = filename;
     }
 
