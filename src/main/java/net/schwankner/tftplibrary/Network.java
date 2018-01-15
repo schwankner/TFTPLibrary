@@ -52,10 +52,10 @@ public class Network {
     }
 
     public void sendPacket(byte[] message, InetAddress remoteHost, boolean awaitAck) {
-        sendPacket(message,remoteHost,this.port,awaitAck);
+        sendPacket(message, remoteHost, this.port, awaitAck);
     }
 
-    public void sendPacket(byte[] message, InetAddress remoteHost,int port,boolean awaitAck) {
+    public void sendPacket(byte[] message, InetAddress remoteHost, int port, boolean awaitAck) {
         boolean gotAck = false;
         int i = 0;
 
@@ -73,11 +73,11 @@ public class Network {
                     //receive response
                     try {
                         byte[] response = receivePacket().getData();
-                        if(Utils.binToShort(Utils.getSnippet(response,0,1))==OpCode.ACK.getNumeral()){
+                        if (Utils.binToShort(Utils.getSnippet(response, 0, 1)) == OpCode.ACK.getNumeral()) {
                             gotAck = true;
                         }
                     } catch (TimeoutException e) {
-                        System.out.println("Response timed out");
+                        System.err.println("Response timed out. Restart transmission.");
                     }
                 } else {
                     break;
@@ -104,12 +104,11 @@ public class Network {
             Utils.trim(data);
             return receivePacket;
         } catch (IOException e) {
-            System.err.println("receive-method had a serverTimeout \nRESTART TRANSMISSION");
+            //System.err.println("receive-method had a serverTimeout \nRESTART TRANSMISSION");
             //trying to synchronize the output, waits 1 sec after this output
             //Thread.sleep(1000);
             throw new TimeoutException();
 
         }
     }
-
 }
