@@ -1,5 +1,7 @@
 package net.schwankner.tftplibrary;
 
+import net.schwankner.tftplibrary.Messages.DataMessage;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +19,7 @@ public class MessageList {
 
     public void addDataMessage(byte[] payload){
         DataMessage message = new DataMessage(
-                (short) messageCollection.size(),
+                (short) (messageCollection.size()+1),
                 payload
                 );
         messageCollection.add(message);
@@ -33,7 +35,7 @@ public class MessageList {
             }
         }
         if(data.length%512==0){
-            addDataMessage(new byte[0]);
+            addDataMessage(new byte[]{});
         }
     }
 

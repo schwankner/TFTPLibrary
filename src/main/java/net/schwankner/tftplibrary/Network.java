@@ -1,6 +1,8 @@
 package net.schwankner.tftplibrary;
 
 
+import net.schwankner.tftplibrary.Messages.OpCode;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -14,21 +16,27 @@ import java.util.concurrent.TimeoutException;
 public class Network {
 
     private int port;
-    private InetAddress remoteHost;
     private int retries;
     private int timeout;
     private DatagramSocket socket;
 
-    public Network(InetAddress remoteHost, int port, int timeout, int retries){
-        this.remoteHost=remoteHost;
-        this.port=port;
+    public Network(int port, int timeout, int retries) {
+        this.port = port;
         this.retries = retries;
-        this.timeout=timeout;
+        this.timeout = timeout;
     }
 
-    public void connect(){
+    public Network(int port) {
+        this.port = port;
+    }
+
+    public void connect(boolean portBind) {
         try {
-            socket = new DatagramSocket();
+            if (portBind) {
+                socket = new DatagramSocket(port);
+            } else {
+                socket = new DatagramSocket();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,13 +47,21 @@ public class Network {
         }
     }
 
-    public void sendMessage(byte[] message, boolean awaitAck){
-        boolean gotAck=false;
+    public void close() {
+        socket.close();
+    }
+
+    public void sendPacket(byte[] message, InetAddress remoteHost, boolean awaitAck) {
+        sendPacket(message,remoteHost,this.port,awaitAck);
+    }
+
+    public void sendPacket(byte[] message, InetAddress remoteHost,int port,boolean awaitAck) {
+        boolean gotAck = false;
         int i = 0;
 
-        if(awaitAck) {
+        if (awaitAck) {
             while (!gotAck) {
-                if(i<retries) {
+                if (i < retries) {
                     //send message
                     try {
                         socket.send(new DatagramPacket(message, message.length, remoteHost, port));
@@ -56,16 +72,18 @@ public class Network {
 
                     //receive response
                     try {
-                        byte[] response = receivePacket();
-                        gotAck = true;
+                        byte[] response = receivePacket().getData();
+                        if(Utils.binToShort(Utils.getSnippet(response,0,1))==OpCode.ACK.getNumeral()){
+                            gotAck = true;
+                        }
                     } catch (TimeoutException e) {
                         System.out.println("Response timed out");
                     }
-                }else {
+                } else {
                     break;
                 }
             }
-        }else {
+        } else {
             try {
                 socket.send(new DatagramPacket(message, message.length, remoteHost, port));
             } catch (IOException e) {
@@ -75,13 +93,14 @@ public class Network {
 
     }
 
-    public byte[] receivePacket() throws TimeoutException{
+    public DatagramPacket receivePacket() throws TimeoutException {
         byte[] data = new byte[1024];
         DatagramPacket receivePacket = new DatagramPacket(data, data.length);
 
         try {
             socket.receive(receivePacket);
-            return Utils.trim(receivePacket.getData());
+            Utils.trim(data);
+            return receivePacket;
         } catch (IOException e) {
             System.err.println("receive-method had a serverTimeout \nRESTART TRANSMISSION");
             //trying to synchronize the output, waits 1 sec after this output
