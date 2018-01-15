@@ -44,4 +44,8 @@ public abstract class AbstractInitiationMessage extends AbstractMessage {
 
         this.mode = new String(Utils.getSnippet(blob, endOfPath + 1, blob.length-1));
     }
+
+    public String getFileName() {
+        return this.fileName;
+    }
 }

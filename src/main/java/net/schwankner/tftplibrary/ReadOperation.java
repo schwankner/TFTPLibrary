@@ -9,15 +9,13 @@ import java.util.List;
 /**
  * Created by Alexander Schwankner on 14.01.18.
  */
-public class MessageList {
+public class ReadOperation {
+
+    private byte[] data;
 
     private List<DataMessage> messageCollection = new ArrayList<>();
 
-    public MessageList(){
-
-    }
-
-    public void addDataMessage(byte[] payload){
+    private void addDataMessage(byte[] payload) {
         DataMessage message = new DataMessage(
                 (short) (messageCollection.size()+1),
                 payload
@@ -26,7 +24,7 @@ public class MessageList {
     }
 
     public void createMessageListFromBin(byte[] data){
-
+        this.data = data;
         for (int i = 0; i < data.length; i = i + 512) {
             if (data.length - i < 512) {
                 addDataMessage(Arrays.copyOfRange(data, i, data.length));
@@ -41,5 +39,9 @@ public class MessageList {
 
     public List<DataMessage> getMessageCollection(){
         return messageCollection;
+    }
+
+    public int getDataSize() {
+        return data.length;
     }
 }
