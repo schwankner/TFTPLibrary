@@ -86,28 +86,19 @@ public class Network {
                 System.out.println(e);
             }
         }
-        /*
-        try {
-            Thread.sleep(1000);                 //1000 milliseconds is one second.
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }        System.out.println("Session closed, server not reachable!");
-        close();
-        System.exit(1);*/
     }
 
     public DatagramPacket receivePacket() throws TimeoutException {
-        byte[] data = new byte[1024];
-        DatagramPacket receivePacket = new DatagramPacket(data, data.length);
+        byte[] buffer = new byte[1024];
+        DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
 
         try {
             socket.receive(receivePacket);
-            receivePacket.setData(Utils.trimRawDataPackage(receivePacket.getData()));
+            byte[] data = new byte[receivePacket.getLength()];
+            System.arraycopy(receivePacket.getData(), receivePacket.getOffset(), data, 0, receivePacket.getLength());
+            receivePacket.setData(data);
             return receivePacket;
         } catch (IOException e) {
-            //System.err.println("receive-method had a serverTimeout \nRESTART TRANSMISSION");
-            //trying to synchronize the output, waits 1 sec after this output
-            //Thread.sleep(1000);
             throw new TimeoutException();
 
         }

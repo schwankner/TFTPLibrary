@@ -24,15 +24,6 @@ public class Utils {
         return buffer.getShort();
     }
 
-    public static byte[] trimRawDataPackage(byte[] bytes) {
-        int i = bytes.length - 1;
-        while (i > 3 && bytes[i] == 0) {
-            --i;
-        }
-
-        return getSnippet(bytes, 0, i);
-    }
-
     public static int findByte(byte[] haystack, byte needle, int start) {
         int i = start;
         boolean found = false;
@@ -46,16 +37,6 @@ public class Utils {
     }
 
     public static byte[] getSnippet(byte[] array, int start, int end) {
-        /*int length = end-start;
-        if(start==0){
-            length = (end-start)+1;
-        }
-        byte[] snippet = new byte[length];
-
-        for (int i = 0;i<end-start;i++){
-            snippet[i]=array[i+start];
-        }
-        return snippet;*/
         return Arrays.copyOfRange(array, start, end + 1);
     }
 

@@ -46,22 +46,6 @@ public class UtilsTest {
     }
 
     @Test
-    public void trimTest(){
-        byte[] input = new byte[]{0x0, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
-        byte[] expected = new byte[]{0x0, 0x4, 0x0, 0x0};
-
-        assertArrayEquals(expected, Utils.trimRawDataPackage(input));
-    }
-
-    @Test
-    public void trimLongMessageTest(){
-        byte[] input = new byte[]{0x0, 0x4, 0x0, 0x1, 0x1, 0x1, 0x1, 0x1, 0x0, 0x0, 0x0, 0x0};
-        byte[] expected = new byte[]{0x0, 0x4, 0x0, 0x1, 0x1, 0x1, 0x1, 0x1};
-
-        assertArrayEquals(expected, Utils.trimRawDataPackage(input));
-    }
-
-    @Test
     public void convertShortToBinAndRevert(){
         byte[] input = Utils.shortToBin((short)1900);
         assertEquals((short)1900,Utils.binToShort(input));
