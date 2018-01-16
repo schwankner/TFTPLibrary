@@ -2,6 +2,7 @@ package net.schwankner.tftplibrary;
 
 import net.schwankner.tftplibrary.Messages.DataMessage;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +13,13 @@ public class ReceiveOperation {
 
     private String filename;
     private List<DataMessage> dataMap = new ArrayList<>();
+    private InetAddress inetAddress;
+    private int port;
 
-    public ReceiveOperation(String filename) {
+    public ReceiveOperation(InetAddress inetAddress, int port, String filename) {
         this.filename = filename;
+        this.inetAddress = inetAddress;
+        this.port = port;
     }
 
     public boolean addDatapackage(DataMessage dataMessage) throws Exception {
