@@ -47,11 +47,11 @@ public class Network {
         socket.close();
     }
 
-    public void sendPacket(byte[] message, InetAddress remoteHost, boolean awaitAck) {
+    public void sendPacket(byte[] message, InetAddress remoteHost, boolean awaitAck) throws Exception {
         sendPacket(message, remoteHost, this.port, awaitAck);
     }
 
-    public void sendPacket(byte[] message, InetAddress remoteHost, int port, boolean awaitAck) {
+    public void sendPacket(byte[] message, InetAddress remoteHost, int port, boolean awaitAck) throws Exception {
         boolean gotAck = false;
         int i = 0;
 
@@ -76,7 +76,7 @@ public class Network {
                         System.err.println("Response timed out. Restart transmission.");
                     }
                 } else {
-                    break;
+                    throw new Exception("Max retries reached");
                 }
             }
         } else {
