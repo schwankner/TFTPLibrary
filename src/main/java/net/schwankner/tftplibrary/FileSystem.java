@@ -18,10 +18,10 @@ public class FileSystem {
 
         } catch (FileNotFoundException e) {
             System.out.println("InputFile not found! " + filename);
-            System.exit(1);
+            //@todo: throw execption and send error message
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            System.exit(1);
+            //@todo: throw execption and send error message
         }
         return null;
     }
