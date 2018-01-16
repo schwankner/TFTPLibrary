@@ -46,6 +46,13 @@ public class UtilsTest {
     }
 
     @Test
+    public void getOpCodeFailTest() {
+        byte[] input = new byte[]{0x0, 0x9, 0x2F, 0x68};
+
+        assertEquals(null, Utils.getOpCode(input));
+    }
+
+    @Test
     public void convertShortToBinAndRevert(){
         byte[] input = Utils.shortToBin((short)1900);
         assertEquals((short)1900,Utils.binToShort(input));
