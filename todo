@@ -1,7 +1,6 @@
 muss:
-	status output
 
 optional:
 	error message
 	big test!
-	    enden/ empfangen Bild
+	senden/ empfangen Bild

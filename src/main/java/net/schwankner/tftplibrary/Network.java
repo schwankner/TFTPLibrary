@@ -26,10 +26,6 @@ public class Network {
         this.timeout = timeout;
     }
 
-    public Network(int port) {
-        this.port = port;
-    }
-
     public void connect(boolean portBind) {
         try {
             if (portBind) {
